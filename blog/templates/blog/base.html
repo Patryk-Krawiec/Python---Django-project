@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+	{% if title %}
+	<title>Blog technologiczny - {{ title }}</title>
+	{% else %}
+	<title>Blog technologiczny</title>
+	{% endif %}
+</head>
+<body>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v3.3"></script>    
+<header class="site-header">
+  <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+    <div class="container">
+      <a class="navbar-brand mr-4" href="/">Blog Technologiczny</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarToggle">
+        <div class="navbar-nav mr-auto">
+          <a class="nav-item nav-link" href="{% url 'blog-start' %}">Strona Startowa</a>
+          <a class="nav-item nav-link" href="{% url 'blog-onas' %}">O Nas</a>
+        </div>
+        <!-- Navbar Right Side -->
+        <div class="navbar-nav">
+          {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'post-create' %}">Nowy Post</a>
+            <a class="nav-item nav-link" href="{% url 'profile' %}">Profil</a>
+            <a class="nav-item nav-link" href="{% url 'logout' %}">Wyloguj</a>
+          {% else %}
+            <a class="nav-item nav-link" href="{% url 'login' %}">Logowanie</a>
+            <a class="nav-item nav-link" href="{% url 'register' %}">Rejestracja</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>	
+<main role="main" class="container">
+  <div class="row">
+    <div class="col-md-8">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+      {% block content %}{% endblock %}
+    </div>
+    <div class="col-md-4">
+      <div class="content-section">
+        <h3>Ciekawostki technologiczne</h3>
+        <p class='text-muted'>Czy wiesz, że...
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-light">Huawei ma problem, bo Facebook blokuje możliwość fabrycznej preinstalacji aplikacji</li>
+            <li class="list-group-item list-group-item-light">Najnowsza generacja MacBooków Pro została objęta programem naprawczym klawiatur</li>
+            <li class="list-group-item list-group-item-light">Amsterdam: Drukarki 3D drukują ławki z plastikowych toreb</li>
+            <li class="list-group-item list-group-item-light">Louis Vuitton będzie sprzedawał torebki z dwoma, elastycznymi ekranami</li>
+            <li class="list-group-item list-group-item-light">Pierwsza ławka smogowa stanęła w Jastrzębiu-Zdroju</li>
+            <li class="list-group-item list-group-item-light">McLaren Senna zbudowany z klocków LEGO w skali 1:1. Pół miliona klocków, 200 osób i prawie 5 tys. godzin</li>
+          </ul>
+        </p>
+      </div>
+    </div>
+  </div>
+</main>
+
+	<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
